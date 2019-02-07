@@ -98,7 +98,7 @@ def generating_training_sets(backgrounds, activates, negatives, index):
 	x = graph_spectrogram(""+str(index)+ ".wav")
 	return x, y
 
-if __name__=="main":
+if __name__=="__main__":
 	act_path = ""           #add path to activation samples
 	neg_path = ""           #add path to negative samples
 	back_path = ""          #add path to background samples
