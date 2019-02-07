@@ -42,7 +42,7 @@ def recording(output_fp, samprate, num_channels, dev_ind):
     waveFile.close()
     print("New wav file created.")
 
-if __name__ = "main":
+if __name__ = "__main__":
     #create instance of PyAudio class
     p = pyaudio.PyAudio()
     for ind in range (0, p.get_device_count()):
