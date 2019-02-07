@@ -42,52 +42,53 @@ def recording(output_fp, samprate, num_channels, dev_ind):
     waveFile.close()
     print("New wav file created.")
 
-#create instance of PyAudio class
-p = pyaudio.PyAudio()
-for ind in range (0, p.get_device_count()):
-    info = p.get_device_info_by_index(ind)
-    print(info)
+if __name__ = "main":
+    #create instance of PyAudio class
+    p = pyaudio.PyAudio()
+    for ind in range (0, p.get_device_count()):
+        info = p.get_device_info_by_index(ind)
+        print(info)
 
-dev_ind = input("Which device do you wish to connect to?\n")
-info = p.get_device_info_by_index(int(dev_ind))
-samprate = info['defaultSampleRate']
-num_channels = info['maxInputChannels']
-print('sampling rate: ', samprate, ' num_channels: ', num_channels)
-time.sleep(1)
+    dev_ind = input("Which device do you wish to connect to?\n")
+    info = p.get_device_info_by_index(int(dev_ind))
+    samprate = info['defaultSampleRate']
+    num_channels = info['maxInputChannels']
+    print('sampling rate: ', samprate, ' num_channels: ', num_channels)
+    time.sleep(1)
 
-voice_name = input("What is your name?\n")
+    voice_name = input("What is your name?\n")
 
-path = r""  #add path_variable
-# Create directory
-dirName = path+'\\Directory_' + voice_name
- 
-try:
-    # Create target Directory
-    os.mkdir(dirName)
-    print(dirName ,  " Created ") 
-except FileExistsError:
-    print(dirName ,  " already exists")
+    path = r""  #add path_variable
+    # Create directory
+    dirName = path+'\\Directory_' + voice_name
+     
+    try:
+        # Create target Directory
+        os.mkdir(dirName)
+        print(dirName ,  " Created ") 
+    except FileExistsError:
+        print(dirName ,  " already exists")
 
-print('Please read the following phrase three times, slowly and clearly after each prompt and countdown: \n')
-time.sleep(3)
-tot = 3
-while(tot!=0):
-    if tot==3:
-        print('Hello Australia\n')
-    else:
-        print("\nPlease read the phrase again: 'Hello Australia'\n")
-    countdown(3)
-    tot = tot-1
-    temp_dirName = dirName + '\\train_'+str(abs(tot-3))
-    recording(temp_dirName, samprate, num_channels, dev_ind)
-    time.sleep(2)
+    print('Please read the following phrase three times, slowly and clearly after each prompt and countdown: \n')
+    time.sleep(3)
+    tot = 3
+    while(tot!=0):
+        if tot==3:
+            print('Hello Australia\n')
+        else:
+            print("\nPlease read the phrase again: 'Hello Australia'\n")
+        countdown(3)
+        tot = tot-1
+        temp_dirName = dirName + '\\train_'+str(abs(tot-3))
+        recording(temp_dirName, samprate, num_channels, dev_ind)
+        time.sleep(2)
 
-negatives = ['Morning Alexa','Baby powder','Red Water']
-for i in range (0, len(negatives)):
-    print("\nPlease read the following phrase: ", negatives[i], "\n")
-    countdown(3)
-    temp_dirName = dirName + '\\negatives'+str(abs(i+1))
-    recording(temp_dirName, samprate, num_channels, dev_ind)
-    time.sleep(2)
+    negatives = ['Morning Alexa','Baby powder','Red Water']
+    for i in range (0, len(negatives)):
+        print("\nPlease read the following phrase: ", negatives[i], "\n")
+        countdown(3)
+        temp_dirName = dirName + '\\negatives'+str(abs(i+1))
+        recording(temp_dirName, samprate, num_channels, dev_ind)
+        time.sleep(2)
 
-p.terminate()
+    p.terminate()
